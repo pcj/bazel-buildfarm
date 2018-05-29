@@ -17,6 +17,7 @@ package build.buildfarm.worker;
 import build.buildfarm.common.DigestUtil;
 import build.buildfarm.worker.CASFileCache;
 import build.buildfarm.instance.Instance;
+import build.buildfarm.instance.stub.ByteStreamUploader;
 import build.buildfarm.v1test.CASInsertionPolicy;
 import com.google.devtools.remoteexecution.v1test.Action;
 import com.google.devtools.remoteexecution.v1test.Digest;
@@ -46,6 +47,7 @@ class StubWorkerContext implements WorkerContext {
   @Override public Duration getDefaultActionTimeout() { throw new UnsupportedOperationException(); }
   @Override public Duration getMaximumActionTimeout() { throw new UnsupportedOperationException(); }
   @Override public Instance getInstance() { throw new UnsupportedOperationException(); }
+  @Override public ByteStreamUploader getUploader() { throw new UnsupportedOperationException(); }
   @Override public ByteString getBlob(Digest digest) { throw new UnsupportedOperationException(); }
   @Override public void createActionRoot(Path root, Action action) { throw new UnsupportedOperationException(); }
   @Override public void destroyActionRoot(Path root) { throw new UnsupportedOperationException(); }

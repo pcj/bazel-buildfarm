@@ -76,6 +76,7 @@ import javax.naming.ConfigurationException;
 public class Worker {
   public static final Logger logger = Logger.getLogger(Worker.class.getName());
   private final Instance instance;
+  private final ByteStreamUploader uploader;
   private final WorkerConfig config;
   private final Path root;
   private final CASFileCache fileCache;
@@ -140,11 +141,12 @@ public class Worker {
 
     /* initialization */
     Channel channel = createChannel(config.getOperationQueue());
+    uploader = createStubUploader(channel);
     instance = new StubInstance(
         config.getInstanceName(),
         new DigestUtil(hashFunction),
         channel,
-        createStubUploader(channel));
+        uploader);
     InputStreamFactory inputStreamFactory = new InputStreamFactory() {
       @Override
       public InputStream apply(Digest digest) {
@@ -337,6 +339,11 @@ public class Worker {
       @Override
       public Instance getInstance() {
         return instance;
+      }
+
+      @Override
+      public ByteStreamUploader getUploader() {
+        return uploader;
       }
 
       @Override

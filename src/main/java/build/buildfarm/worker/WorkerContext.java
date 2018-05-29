@@ -16,6 +16,7 @@ package build.buildfarm.worker;
 
 import build.buildfarm.common.DigestUtil;
 import build.buildfarm.instance.Instance;
+import build.buildfarm.instance.stub.ByteStreamUploader;
 import build.buildfarm.v1test.CASInsertionPolicy;
 import com.google.devtools.remoteexecution.v1test.Action;
 import com.google.devtools.remoteexecution.v1test.Digest;
@@ -46,6 +47,7 @@ public interface WorkerContext {
   Duration getDefaultActionTimeout();
   Duration getMaximumActionTimeout();
   Instance getInstance();
+  ByteStreamUploader getUploader();
   ByteString getBlob(Digest digest);
   void createActionRoot(Path root, Action action) throws IOException, InterruptedException;
   void destroyActionRoot(Path root) throws IOException;
